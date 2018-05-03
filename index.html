@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>GIS Map</title>
+    <style>
+        html, body, #map {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <script src="src/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="src/css/leaflet.css"/>
+    <script src="src/js/leaflet.js"></script>
+    <script src="src/js/proj4.js"></script>
+    <script src="src/js/proj4leaflet.min.js"></script>
+    <script src="src/js/tileLayer.baidu.js"></script>
+</head>
+<body>
+<div id="map" class="map"></div>
+<script type="text/javascript">
+        var map = L.map('map', {
+            crs: L.CRS.Baidu,
+            minZoom: 3,
+            maxZoom: 20,
+            attributionControl: false,
+            center: [30.446745, 114.451091],
+            zoom: 17
+        });
+        //控制地图底图
+        L.control.layers(
+            {
+                "百度地图": L.tileLayer.baidu({layer: 'vec'}).addTo(map),
+                "百度卫星": L.tileLayer.baidu({layer: 'img'}),
+                "offline": L.tileLayer.baidu({layer: 'offline'}),
+                "百度地图-大字体": L.tileLayer.baidu({layer: 'vec', bigfont: true}),
+                "百度卫星-大字体": L.tileLayer.baidu({layer: 'img', bigfont: true}),
+                "自定义样式-黑色地图": L.tileLayer.baidu({layer: 'custom', customid: 'dark'}),
+                "自定义样式-蓝色地图": L.tileLayer.baidu({layer: 'custom', customid: 'midnight'})
+            },
+            {
+                "实时交通信息": L.tileLayer.baidu({layer: 'time'})
+            },
+            {position: "topright"}).addTo(map);
+        // test
+        new L.marker([30.446745, 114.451091]).addTo(map);
+
+
+</script>
+</body>
+</html>
